@@ -31,8 +31,8 @@ const addUser = async (body) => {
     to: body.email,
     from: "mkundeev@gmail.com",
     subject: "Contactsbook email verification",
-    text: `Please confirm your email POST ${process.env.PORT}/api/users/verify/${verificationToken}`,
-    html: `Please confirm your email POST ${process.env.PORT}/api/users/verify/${verificationToken}`,
+    text: `Please confirm your email POST https://contacts-book-mk.herokuapp.com/api/users/verify/${verificationToken}`,
+    html: `Please confirm your email POST https://contacts-book-mk.herokuapp.com/api/users/verify/${verificationToken}`,
   };
   await sgMail.send(msg);
 
@@ -152,8 +152,8 @@ const resendEmail = async ({ email }) => {
     to: email,
     from: "mkundeev@gmail.com",
     subject: "Contactsbook email verification",
-    text: `Please confirm your email POST ${process.env.PORT}/api/users/verify/${user.verificationToken}`,
-    html: `Please confirm your email POST ${process.env.PORT}/api/users/verify/${user.verificationToken}`,
+    text: `Please confirm your email POST https://contacts-book-mk.herokuapp.com/api/users/verify/${user.verificationToken}`,
+    html: `Please confirm your email POST https://contacts-book-mk.herokuapp.com/api/users/verify/${user.verificationToken}`,
   };
   await sgMail.send(msg);
 };
