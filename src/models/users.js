@@ -152,8 +152,8 @@ const resendEmail = async ({ email }) => {
     to: email,
     from: "mkundeev@gmail.com",
     subject: "Contactsbook email verification",
-    text: `Please confirm your email POST http://localhost:4000/api/users/verify/${user.verificationToken}`,
-    html: `Please confirm your email POST http://localhost:4000/api/users/verify/${user.verificationToken}`,
+    text: `Please confirm your email POST ${process.env.PORT}/api/users/verify/${user.verificationToken}`,
+    html: `Please confirm your email POST ${process.env.PORT}/api/users/verify/${user.verificationToken}`,
   };
   await sgMail.send(msg);
 };
