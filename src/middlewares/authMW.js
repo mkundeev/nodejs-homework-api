@@ -14,7 +14,7 @@ const authMW = async (req, res, next) => {
     });
   }
   try {
-    const user = jwt.decode(token, process.env.SECRET);
+    const user = jwt.decode(token, "qwerty12345678");
     if (!(await User.findOne({ _id: user._id, token: token }))) {
       return res.status(401).json({
         message: "Not authorized",

@@ -7,7 +7,9 @@ const fs = require("fs").promises;
 const path = require("path");
 const { v4: uuidv4 } = require("uuid");
 const sgMail = require("@sendgrid/mail");
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+sgMail.setApiKey(
+  "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"
+);
 
 const avatarsPath = path.resolve("./public/avatars");
 const {
@@ -55,7 +57,7 @@ const loginUser = async ({ email, password }) => {
     {
       _id: user._id,
     },
-    process.env.SECRET
+    "qwerty12345678"
   );
   const logedInUser = await User.findOneAndUpdate(
     { email },
