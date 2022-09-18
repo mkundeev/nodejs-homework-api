@@ -101,7 +101,6 @@ const updateSubscription = async (body, userId) => {
 };
 
 const changeAvatar = async (req, userId) => {
-  console.log("2", req.file.path);
   if (!req?.file?.path) {
     throw new Conflict("Please add image for avatar");
   }
