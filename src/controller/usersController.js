@@ -55,6 +55,7 @@ async function updateUserSubscription(req, res) {
 }
 
 async function changeUseravatar(req, res) {
+  console.log("1", req);
   const user = await changeAvatar(req, req.userId);
   res.status(200).json({ avatarURL: user.avatarURL });
 }

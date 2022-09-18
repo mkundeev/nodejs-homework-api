@@ -55,7 +55,7 @@ const loginUser = async ({ email, password }) => {
     {
       _id: user._id,
     },
-    "qwerty12345678"
+    process.env.SECRET
   );
   const logedInUser = await User.findOneAndUpdate(
     { email },
@@ -101,13 +101,15 @@ const updateSubscription = async (body, userId) => {
 };
 
 const changeAvatar = async (req, userId) => {
+  console.log("2", req.file.path);
   if (!req?.file?.path) {
     throw new Conflict("Please add image for avatar");
   }
   const { path: temporaryPath, originalname } = req.file;
   const [, fileExtension] = originalname.split(".");
   const newFileName = avatarsPath + "/" + userId + "." + fileExtension;
-
+  console.log("temporaryPath", temporaryPath);
+  console.log("newFileName", newFileName);
   try {
     await fs.copyFile(temporaryPath, newFileName);
     resizeAvatar(newFileName);
