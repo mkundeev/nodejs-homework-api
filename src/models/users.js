@@ -3,20 +3,25 @@ const { User } = require("../db/usersSchema.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const gravatar = require("gravatar");
-const fs = require("fs").promises;
-const path = require("path");
 const { v4: uuidv4 } = require("uuid");
 const sgMail = require("@sendgrid/mail");
+const {
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+} = require("firebase/storage");
+const { app } = require("../services/fierbaseConfig");
+const storage = getStorage(app);
+
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-const avatarsPath = path.resolve("./public/avatars");
 const {
   Conflict,
   Unauthorized,
   InternalServerError,
   NotFound,
 } = require("http-errors");
-const resizeAvatar = require("../helpers/resizeAvatar");
 
 const addUser = async (body) => {
   if (await User.findOne({ email: body.email })) {
@@ -101,27 +106,25 @@ const updateSubscription = async (body, userId) => {
 };
 
 const changeAvatar = async (req, userId) => {
-  if (!req?.file?.path) {
+  if (!req.file) {
     throw new Conflict("Please add image for avatar");
   }
-  const { path: temporaryPath, originalname } = req.file;
-  const [, fileExtension] = originalname.split(".");
-  const newFileName = avatarsPath + "/" + userId + "." + fileExtension;
-  console.log("temporaryPath", temporaryPath);
-  console.log("newFileName", newFileName);
   try {
-    await fs.copyFile(temporaryPath, newFileName);
-    resizeAvatar(newFileName);
-    await fs.unlink(temporaryPath);
+    const file = req.file;
+    const storageRef = ref(storage, `avatars/${userId}`);
+    await uploadBytes(storageRef, file.buffer, {
+      contentType: "image/png",
+    });
+    const downloadURL = await getDownloadURL(ref(storage, `avatars/${userId}`));
     return User.findByIdAndUpdate(
       userId,
-      { avatarURL: newFileName },
+      { avatarURL: downloadURL },
       {
         new: true,
       }
     );
-  } catch (err) {
-    throw new InternalServerError("Server error");
+  } catch (error) {
+    console.log(error);
   }
 };
 
