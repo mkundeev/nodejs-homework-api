@@ -6,6 +6,8 @@ const contactsRouter = require("./src/routes/api/contacts");
 const usersRouter = require("./src/routes/api/users");
 
 const app = express();
+const swaggerUi = require("swagger-ui-express");
+const swaggerDocument = require("./src/services/openapi.json");
 
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
@@ -15,6 +17,7 @@ app.use(express.json());
 
 app.use("/contacts", contactsRouter);
 app.use("/users", usersRouter);
+app.use("/", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });

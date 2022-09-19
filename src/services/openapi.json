@@ -1,0 +1,1125 @@
+{
+  "openapi": "3.0.0",
+  "servers": [
+    {
+      "description": "SwaggerHub API Auto Mocking",
+      "url": "https://contacts-book-mk.herokuapp.com/"
+    }
+  ],
+  "info": {
+    "version": "1.0.0",
+    "title": "Contacts-book",
+    "description": "The contacst book API"
+  },
+  "paths": {
+    "/users/signup": {
+      "post": {
+        "summary": "signup user",
+        "tags": [
+          "Users"
+        ],
+        "operationId": "registerUser",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/userSignUpRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successfully registered user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/userResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Email in use",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Email in use"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "summary": "login user",
+        "tags": [
+          "Users"
+        ],
+        "operationId": "loginUser",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/userLogInRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully login user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string"
+                    },
+                    "user": {
+                      "$ref": "#/components/schemas/userResponse"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Email is not verified",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Email is not verified"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Wrong email all password",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Wrong email all password"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/logout": {
+      "post": {
+        "summary": "logout user",
+        "tags": [
+          "Users"
+        ],
+        "operationId": "logoutUser",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successfully logout user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "No Content"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/current": {
+      "get": {
+        "summary": "get current user",
+        "tags": [
+          "Users"
+        ],
+        "operationId": "getCurrenttUser",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successfully registered user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/userResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users": {
+      "patch": {
+        "summary": "update user subscription",
+        "tags": [
+          "Users"
+        ],
+        "operationId": "updateUserSubscription",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/subscription"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "user subscription successfully updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/subscription"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/avatars": {
+      "patch": {
+        "summary": "update user avatar",
+        "tags": [
+          "Users"
+        ],
+        "operationId": "updateUserAvatar",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/avatar"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "user avatar successfully updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/avatar"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/verify/{verificationToken}": {
+      "get": {
+        "summary": "verify user email",
+        "tags": [
+          "Users"
+        ],
+        "operationId": "verifyUserEmail",
+        "parameters": [
+          {
+            "name": "verificationToken",
+            "in": "path",
+            "description": "User verification token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "user email successfully verified",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/avatar"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "User not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/verify": {
+      "post": {
+        "summary": "send verification email",
+        "tags": [
+          "Users"
+        ],
+        "operationId": "resendVerificationEmail",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/email"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "verification email successfully sent",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Verification email sent"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Wrong email",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Wrong email"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Verification has already been passed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Verification has already been passed"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contacts": {
+      "get": {
+        "summary": "get contacts",
+        "tags": [
+          "Contacts"
+        ],
+        "operationId": "getContacts",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "contacts received",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/contacts"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "add contact",
+        "tags": [
+          "Contacts"
+        ],
+        "operationId": "addContact",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/contactRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "contact added",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/contact"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contacts/{contactId}": {
+      "get": {
+        "summary": "get contact by id",
+        "tags": [
+          "Contacts"
+        ],
+        "operationId": "getContactById",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "contactId",
+            "in": "path",
+            "description": "contact id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "contact received",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/contact"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Contact with id:{contactId} does not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Contact with id:{contactId} does not exist"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "delete contact by id",
+        "tags": [
+          "Contacts"
+        ],
+        "operationId": "deleteContactById",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "contactId",
+            "in": "path",
+            "description": "contact id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "contact deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "contact deleted"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Contact with id:{contactId} does not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Contact with id:{contactId} does not exist"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "update contact",
+        "tags": [
+          "Contacts"
+        ],
+        "operationId": "updateContact",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "contactId",
+            "in": "path",
+            "description": "contact id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/contactUpdateRequestBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "contact deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/contact"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Contact with id:{contactId} does not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Contact with id:{contactId} does not exist"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/contacts/{contactId}/favorite": {
+      "patch": {
+        "summary": "update contact status",
+        "tags": [
+          "Contacts"
+        ],
+        "operationId": "updateContactStatus",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "token",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "contactId",
+            "in": "path",
+            "description": "contact id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "favorite": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "contact deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/contact"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Contact with id:{contactId} does not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Contact with id:{contactId} does not exist"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "userSignUpRequest": {
+        "type": "object",
+        "required": [
+          "name",
+          "password",
+          "email"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Jhon Smith"
+          },
+          "email": {
+            "type": "string",
+            "example": "test@test.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "1234qwer"
+          },
+          "subscription": {
+            "type": "string",
+            "enum": [
+              "starter",
+              "pro",
+              "business"
+            ]
+          },
+          "avatarURL": {
+            "type": "string",
+            "example": "http://avatarimglink"
+          }
+        },
+        "description": "user signup object"
+      },
+      "userLogInRequest": {
+        "type": "object",
+        "required": [
+          "password",
+          "email"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "test@test.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "1234qwer"
+          }
+        },
+        "description": "user signup object"
+      },
+      "error": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "subscription": {
+        "type": "object",
+        "properties": {
+          "subscription": {
+            "type": "string",
+            "enum": [
+              "starter",
+              "pro",
+              "business"
+            ]
+          }
+        }
+      },
+      "avatar": {
+        "type": "object",
+        "properties": {
+          "avatarURL": {
+            "type": "string",
+            "example": "http://avatarimglink"
+          }
+        }
+      },
+      "email": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "test@test.com"
+          }
+        }
+      },
+      "userResponse": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Jhon Smith"
+          },
+          "email": {
+            "type": "string",
+            "example": "test@test.com"
+          },
+          "subscription": {
+            "type": "string",
+            "enum": [
+              "starter",
+              "pro",
+              "business"
+            ]
+          },
+          "avatarURL": {
+            "type": "string",
+            "example": "http://avatarimglink"
+          }
+        },
+        "description": "user response object"
+      },
+      "contact": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "example": "Jhon Smith"
+          },
+          "email": {
+            "type": "string",
+            "example": "test@test.com"
+          },
+          "phone": {
+            "type": "string",
+            "example": "+111 11 1111111"
+          },
+          "favorite": {
+            "type": "boolean"
+          },
+          "owner": {
+            "type": "string"
+          }
+        }
+      },
+      "contacts": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/contact"
+        }
+      },
+      "contactRequestBody": {
+        "type": "object",
+        "required": [
+          "name",
+          "phone",
+          "email"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Jhon Smith"
+          },
+          "email": {
+            "type": "string",
+            "example": "test@test.com"
+          },
+          "phone": {
+            "type": "string",
+            "example": "+111 11 1111111"
+          },
+          "favorite": {
+            "type": "boolean"
+          }
+        }
+      },
+      "contactUpdateRequestBody": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Jhon Smith"
+          },
+          "email": {
+            "type": "string",
+            "example": "test@test.com"
+          },
+          "phone": {
+            "type": "string",
+            "example": "+111 11 1111111"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
