@@ -20,11 +20,11 @@ async function getUserContactById(req, res) {
       .json({ message: `Contact with id:${contactId} does not exist` });
     return;
   }
-  res.status(200).json({ contact });
+  res.status(200).json(contact);
 }
 async function postContact(req, res) {
   const contact = await addContact(req.body, req.userId);
-  res.status(201).json({ contact });
+  res.status(201).json(contact);
 }
 
 async function deletContact(req, res) {
@@ -48,7 +48,7 @@ async function updateContactById(req, res) {
       .json({ message: `Contact with id:${contactId} does not exist` });
     return;
   }
-  res.status(200).json({ contact });
+  res.status(200).json(contact);
 }
 
 async function updateContactStatusById(req, res) {
@@ -60,7 +60,7 @@ async function updateContactStatusById(req, res) {
       .json({ message: `Contact with id:${contactId} does not exist` });
     return;
   }
-  res.status(200).json({ contact });
+  res.status(200).json(contact);
 }
 
 module.exports = {

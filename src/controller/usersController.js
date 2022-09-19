@@ -51,7 +51,7 @@ async function getCurrentUser(req, res) {
 }
 async function updateUserSubscription(req, res) {
   const user = await updateSubscription(req.body, req.userId);
-  res.status(200).json({ email: user.email, subscription: user.subscription });
+  res.status(200).json({ subscription: user.subscription });
 }
 
 async function changeUseravatar(req, res) {

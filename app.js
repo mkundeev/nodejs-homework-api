@@ -4,7 +4,6 @@ const cors = require("cors");
 
 const contactsRouter = require("./src/routes/api/contacts");
 const usersRouter = require("./src/routes/api/users");
-const avatarsRouter = require("./src/routes/api/avatars");
 
 const app = express();
 

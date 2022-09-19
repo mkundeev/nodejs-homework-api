@@ -5,12 +5,12 @@ const userRegistartionValidationSchema = Joi.object({
   password: Joi.string().min(8).max(12).required(),
   email: Joi.string().email().required(),
   subscription: Joi.any().valid("starter", "pro", "business").optional(),
+  avatarURL: Joi.string().optional(),
 });
 
 const userAuthorizationValidationSchema = Joi.object({
   password: Joi.string().min(8).max(12).required(),
   email: Joi.string().email().required(),
-  subscription: Joi.any().valid("starter", "pro", "business").optional(),
 });
 
 const userSubscriptionSchema = Joi.object({

@@ -48,13 +48,13 @@ const addUser = async (body) => {
 const loginUser = async ({ email, password }) => {
   const user = await User.findOne({ email });
   if (!user) {
-    throw new Unauthorized("Email or password is wrong");
+    throw new NotFound("Email or password is wrong");
   }
   if (!user?.verify) {
     throw new Unauthorized("Please verify your email");
   }
   if (!(await bcrypt.compare(password, user.password))) {
-    throw new Unauthorized("Wrong password");
+    throw new NotFound("Email or password is wrong");
   }
   const token = jwt.sign(
     {
