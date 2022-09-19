@@ -293,6 +293,12 @@
                 "type": "string",
                 "format": "binary"
               }
+            },
+            "image/jpeg": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
             }
           }
         },
@@ -303,6 +309,22 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/avatar"
+                }
+              }
+            }
+          },
+          "415": {
+            "description": "wrong MIME type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Avatar should be image"
+                    }
+                  }
                 }
               }
             }

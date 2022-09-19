@@ -21,6 +21,7 @@ const {
   Unauthorized,
   InternalServerError,
   NotFound,
+  UnsupportedMediaType,
 } = require("http-errors");
 
 const addUser = async (body) => {
@@ -108,6 +109,11 @@ const updateSubscription = async (body, userId) => {
 const changeAvatar = async (req, userId) => {
   if (!req.file) {
     throw new Conflict("Please add image for avatar");
+  }
+  if (
+    !(req.file.mimetype === "image/png" || req.file.mimetype === "image/jpeg")
+  ) {
+    throw new UnsupportedMediaType("Avatar should be image");
   }
   try {
     const file = req.file;
