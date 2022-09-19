@@ -287,11 +287,11 @@
           }
         ],
         "requestBody": {
-          "required": true,
           "content": {
-            "application/json": {
+            "image/png": {
               "schema": {
-                "$ref": "#/components/schemas/avatar"
+                "type": "string",
+                "format": "binary"
               }
             }
           }
