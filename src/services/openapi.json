@@ -162,17 +162,6 @@
             "BearerAuth": []
           }
         ],
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "token",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "204": {
             "description": "Successfully logout user",
@@ -215,17 +204,6 @@
             "BearerAuth": []
           }
         ],
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "token",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "201": {
             "description": "Successfully registered user",
@@ -260,17 +238,6 @@
         "security": [
           {
             "BearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "token",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
           }
         ],
         "requestBody": {
@@ -317,17 +284,6 @@
         "security": [
           {
             "BearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "token",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
           }
         ],
         "requestBody": {
@@ -513,17 +469,6 @@
             "BearerAuth": []
           }
         ],
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "token",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "contacts received",
@@ -556,17 +501,6 @@
         "security": [
           {
             "BearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "token",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
           }
         ],
         "requestBody": {
@@ -616,15 +550,6 @@
           }
         ],
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "token",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "contactId",
             "in": "path",
@@ -686,15 +611,6 @@
           }
         ],
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "token",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "contactId",
             "in": "path",
@@ -762,15 +678,6 @@
           }
         ],
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "token",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "contactId",
             "in": "path",
@@ -844,15 +751,6 @@
           }
         ],
         "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "description": "token",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "contactId",
             "in": "path",
