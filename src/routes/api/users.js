@@ -19,7 +19,7 @@ const {
   userAuthorizationValidationSchema,
 } = require("../../models/usersSchema");
 const { validation } = require("../../middlewares/validation");
-const { authMW } = require("../../middlewares/authMW");
+const { authMW, auth } = require("../../middlewares/authMW");
 const { upload } = require("../../helpers/uplodeAvatar");
 
 const router = express.Router();
@@ -36,7 +36,7 @@ router.post(
   errorHandler(logInUser)
 );
 
-router.post("/logout", authMW, errorHandler(logOutUser));
+router.post("/logout", auth, errorHandler(logOutUser));
 
 router.get("/current", authMW, errorHandler(getCurrentUser));
 

@@ -11,6 +11,12 @@ const swaggerDocument = require("./src/services/openapi.json");
 
 const formatsLogger = app.get("env") === "development" ? "dev" : "short";
 
+const passport = require("passport");
+const strategy = require("./src/passport/passport");
+
+// JWT Strategy
+passport.use(strategy);
+
 app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
