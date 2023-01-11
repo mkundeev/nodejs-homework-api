@@ -11,7 +11,6 @@ const params = {
 };
 
 const strategy = new Strategy(params, async function (payload, done) {
-  console.log(payload);
   await User.find({ _id: payload._id })
     .then(([user]) => {
       if (!user) {
